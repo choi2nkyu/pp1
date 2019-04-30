@@ -4,7 +4,7 @@
     <table id="table" class="tableMargin">
       <thead>
         <tr class="thMargin">
-          <th v-for="key in columns" :key="key">{{key | capitalize}}</th>
+          <th v-for="key in columns" :key="key">{{key}}</th>
         </tr>
       </thead>
       <tbody>
@@ -30,21 +30,14 @@ export default {
         { name: "Leonardo", id: 2, workHour: "half", salary: null },
         { name: "Andrea", id: 3, workHour: "full", salary: null }
       ],
-      columns: ["name", "id", "workHour", "salary"]
+      columns: ["name", "id", "workHour", "salary"],
+      amount: Number,
+      wage: Number
     };
-  },
-  props: {
-    onCalculate: {
-      type: Function
-    },
-    onClear: {
-      type: Function
-    },
-    amount: Number
   },
   methods: {
     onCalculate(amount) {
-      var wage = 500;
+      this.wage = 500;
       this.users.forEach(user => {
         if (amount) {
           user.salary = user.workHour == "full" ? amount * 12 : amount * 6;
@@ -57,7 +50,7 @@ export default {
       this.users.forEach(user => {
         user.salary = null;
       });
-      return (this.amount = "");
+      this.amount = "";
     }
   }
 };
