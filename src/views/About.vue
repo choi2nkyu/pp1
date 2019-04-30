@@ -1,7 +1,7 @@
 <template>
   <div class="about">
     <h1>Here comes the register</h1>
-    <table class="tableMargin">
+    <table id="table" class="tableMargin">
       <thead>
         <tr class="thMargin">
           <th v-for="key in columns" :key="key">{{key | capitalize}}</th>
@@ -15,8 +15,8 @@
     </table>
     <label for="input">Please type in the monthly wage</label>
     <input name="input" type="text" v-model="amount" placeholder="Default amount is $1000">
-    <button v-on:click="onCalculate(amount)">Calculate</button>
-    <button v-on:click="onClear">Clear</button>
+    <button class="calculate" v-on:click="onCalculate(amount)">Calculate</button>
+    <button class="clear" v-on:click="onClear">Clear</button>
   </div>
 </template>
 
@@ -33,6 +33,15 @@ export default {
       columns: ["name", "id", "workHour", "salary"]
     };
   },
+  props: {
+    onCalculate: {
+      type: Function
+    },
+    onClear: {
+      type: Function
+    },
+    amount: Number
+  },
   methods: {
     onCalculate(amount) {
       var wage = 500;
@@ -48,6 +57,7 @@ export default {
       this.users.forEach(user => {
         user.salary = null;
       });
+      return (this.amount = "");
     }
   }
 };
