@@ -5,7 +5,6 @@ import { wrap } from "module";
 
 describe("HelloWorld.vue", () => {
   let wrapper;
-  let wrapper2;
   const wage = 500;
   const amount = 2000;
 
@@ -20,7 +19,7 @@ describe("HelloWorld.vue", () => {
   });
 
   describe("Click event", () => {
-    wrapper2 = mount(About, {
+    wrapper = mount(About, {
       propsData: {
         amount: amount,
         wage: wage
@@ -31,13 +30,20 @@ describe("HelloWorld.vue", () => {
     });
     it("test3", () => {
       wrapper.find("button.calculate").trigger("click");
-      console.log(wrapper.vm);
       expect(wrapper.vm.wage).to.equal(wage);
+      console.log(wrapper.vm.users);
+    });
+    it("test5", () => {
+      wrapper.find("button.calculate").trigger("click");
+      expect(wrapper.vm.columns).to.include("salary");
     });
   });
 
   it("test4", () => {
     wrapper = shallowMount(About);
-    expect(wrapper.find("button.calculate").text()).to.include("Calc");
+    const buttonArray = wrapper.findAll("button");
+    const secondButton = buttonArray.at(1);
+    expect(wrapper.find("button.calculate").text()).to.include("Calculate");
+    expect(secondButton.text()).to.include("Clear");
   });
 });
